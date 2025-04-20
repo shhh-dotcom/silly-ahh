@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stars and Moons Game</title>
+    <style>
+    
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <h1>Stars and Moons Game</h1>
+
+    <div class="game-container">
+        <p>{{ message|safe }}</p>
+
+        {% if feedback %}
+            <ul>
+                {% for item in feedback %}
+                    <li>{{ item | safe}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if message != "You won!" and message != "You lose!" %}
+            <form method="POST">
+                <label for="guess">Enter your guess (4 numbers separated by space):</label><br>
+                <input type="text" name="guess" pattern="^(\d{1,2} \d{1,2} \d{1,2} \d{1,2})$" placeholder="E.g. 5 10 15 20" required>
+                <button type="submit">Submit</button>
+            </form>
+        {% else %}
+            <a href="{{ url_for('play') }}">Play Again</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+
